@@ -1,11 +1,37 @@
-import os
 import requests 
-import json
 from datetime import datetime, timedelta, timezone
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from dotenv import load_dotenv
+
+
+"""
+This package is inspired by the work found at https://github.com/TapirLab/calendar-task-synchronization. 
+Its license is included below.
+
+MIT License
+
+Copyright (c) 2021 Tapir Lab.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 
 def load_credentials(secret_file_path, scopes):
     """Loads credentials if secret_file_path is correct.
@@ -385,39 +411,3 @@ def synchronize_tasks(parsed_tasks, parsed_events, service, calendar_id):
 
     return [task_ids, error]
 
-if __name__ == "__main__":
-    load_dotenv()
-
-    # Notion API token and Database ID.
-    NOTION_API_KEY = os.getenv("NOTION_API_KEY")
-    NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
-
-    # Google Calendar and Calendar API Configurations
-    GOOGLE_SERVICE_ACCOUNT_SECRET_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_SECRET_FILE")
-    GOOGLE_API_SCOPE = os.getenv("GOOGLE_API_SCOPE")
-    GOOGLE_CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID")
-    READ_CALENDAR_SINCE=os.getenv("READ_CALENDAR_SINCE")
-    SCOPES = [GOOGLE_API_SCOPE]
-
-    # Load Google API credentials
-    credentials = load_credentials(GOOGLE_SERVICE_ACCOUNT_SECRET_FILE, SCOPES)
-    
-    # Start google calendar service
-    calendar_service = google_calendar_service(credentials)
-
-    # NOTION
-    # Read tasks on Notion
-    database_response = read_database(NOTION_API_KEY, NOTION_DATABASE_ID)
-    # Parse tasks to start synchronization
-    parsed_tasks, err = parse_tasks_in_database(database_response)
-    
-    # Google Calendar
-    # Read events from calendar
-    all_events = read_events(calendar_service, GOOGLE_CALENDAR_ID, since=READ_CALENDAR_SINCE)
-    # Parse events
-    parsed_events, gc_err = parse_events(all_events)
-    
-    # SYNCHRONIZE!
-    tasks, errors = synchronize_tasks(parsed_tasks, parsed_events, calendar_service, GOOGLE_CALENDAR_ID)
-
-    print('Synchronization has been completed at %s!' %datetime.today().isoformat())
