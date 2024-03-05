@@ -6,7 +6,7 @@ Efficient project management relies on keeping your tasks organized and readily 
 
 **Please duplicate the [example Notion database](https://hsaidcankurtaran.notion.site/9f8f881760014fe5ada0f2c9fe7c0906?v=819c5588e6df4f70baae8177bd10f6f4&pvs=4) to create your own. Changing column names will cause the script to fail.**
 
-*This repository is a derivative of [Tapir Lab.'s Task Synchronization Repository](https://github.com/TapirLab/calendar-task-synchronization).*
+*This repository is a derivative of [Tapir Lab.'s Task Synchronization Repository](https://github.com/TapirLab/calendar-task-synchronization)*. Licenses are included.
 
 ## Benefits
 
@@ -26,21 +26,26 @@ Efficient project management relies on keeping your tasks organized and readily 
 2. **Google Calendar:**
 
    - **Create a new calendar** in your Google Calendar settings. **Important:** Do not use your main calendar! Create a new one **as all entries in the chosen calendar can be removed by this script.**
-        <img src="./examples/create-google-calendar.png" alt="Create Google Calendar" width="500"/>
+
+      <img src="https://github.com/hsaidc/notion-to-google-calendar-synchronizaton/blob/main/examples/create-google-calendar.png?raw=true" alt="Create Google Calendar" width="500"/>
 
    - **Add your service account to the calendar with "Make changes to events" permission.**
-        <img src="./examples/adding-service-account-to-calendar.png" alt="Create Google Calendar" width="500"/>
+
+      <img src="https://github.com/hsaidc/notion-to-google-calendar-synchronizaton/blob/main/examples/adding-service-account-to-calendar.png?raw=true" alt="Create Google Calendar" width="500"/>
 
 
 3. **Google Calendar ID:** Obtain the ID of your Google Calendar in Calendar settings. You can find the Calendar ID in the "Integrate Calendar" section of your Google Calendar settings.
     
-    <img src="./examples/google-calendar-id.png" alt="Google Calendar ID" width="500"/>
+    <img src="https://github.com/hsaidc/notion-to-google-calendar-synchronizaton/blob/main/examples/google-calendar-id.png?raw=true" alt="Google Calendar ID" width="500"/>
 
 4. **Notion API key:** Generate an API key for Notion to access your data programmatically. Please read https://developers.notion.com/docs/create-a-notion-integration to learn how to create an API key. **Remember to add your integration to your database, as shown in the guide.**
 
 5. **Notion database ID:**
 
    - Click the **Share** button located on the top right of the Notion window.
+
+      <img src="https://github.com/hsaidc/notion-to-google-calendar-synchronizaton/blob/main/examples/notion-db-id.png?raw=true" alt="Google Calendar ID" width="500"/>
+      
    - Copy the URL displayed in the dropdown menu. The URL will be in the format:
 
      ```
